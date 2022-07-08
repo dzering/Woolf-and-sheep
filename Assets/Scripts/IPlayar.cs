@@ -1,6 +1,6 @@
 ﻿namespace SheepsWolf
 {
-    public interface IMovable
+    public interface IPlayar
     {
         void Move(float x, float z);
     }

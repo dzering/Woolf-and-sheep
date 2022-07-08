@@ -5,18 +5,18 @@ namespace SheepsWolf
 {
     public class InputController 
     {
-        private readonly IMovable movableObject;
+        private readonly IPlayar player;
 
-        public InputController(IMovable movableObject)
+        public InputController(IPlayar player)
         {
-            this.movableObject = movableObject;
+            this.player = player;
         }
 
         public void Update()
         {
             float x = Input.GetAxis("Horizontal");
             float z = Input.GetAxis("Vertical");
-            movableObject.Move(x, z);
+            player.Move(x, z);
         }
     }
 }

@@ -9,7 +9,7 @@ namespace SheepsWolf
 
         private void Start()
         {
-           inputController = new InputController(player as IMovable);
+           inputController = new InputController(player as IPlayar);
         }
 
         private void Update()
