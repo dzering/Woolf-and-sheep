@@ -1,4 +1,6 @@
 using UnityEngine;
+using SheepsWolf.Abstracts;
+
 
 namespace SheepsWolf
 {

@@ -1,4 +1,4 @@
-﻿namespace SheepsWolf
+﻿namespace SheepsWolf.Abstracts
 {
     public interface IPlayar
     {
