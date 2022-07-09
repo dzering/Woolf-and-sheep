@@ -10,7 +10,7 @@ namespace SheepsWolf
         [SerializeField] private Player player;
         [SerializeField] private GameObject sheepPrefab;
         [SerializeField] private int quantitySheeps;
-        [SerializeField] private AreaSizes areaSizes;
+        [SerializeField] private SpawnPositionManager spawnPositionManager;
 
         private InputController inputController;
         private CameraController cameraController;
@@ -28,7 +28,7 @@ namespace SheepsWolf
         {
             for (int i = 0; i < quantitySheeps; i++)
             {
-                spawner.SpawningObject(areaSizes.GetRandomPosition());
+                spawner.SpawningObject(spawnPositionManager.GetRandomPosition());
 
             }
         }
