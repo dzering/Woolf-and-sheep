@@ -1,5 +1,6 @@
 using UnityEngine;
 using SheepsWolf.Abstracts;
+using SheepsWolf.Spawners;
 
 
 namespace SheepsWolf
@@ -7,13 +8,29 @@ namespace SheepsWolf
     public sealed class EntryPoint : MonoBehaviour
     {
         [SerializeField] private Player player;
+        [SerializeField] private GameObject sheepPrefab;
+        [SerializeField] private int quantitySheeps;
+        [SerializeField] private AreaSizes areaSizes;
+
         private InputController inputController;
         private CameraController cameraController;
+        private Spawner spawner;
 
         private void Start()
         {
-           inputController = new InputController(player as IPlayar);
-           cameraController = new CameraController(player.transform);
+            inputController = new InputController(player as IPlayar);
+            cameraController = new CameraController(player.transform);
+            spawner = new Spawner(sheepPrefab);
+            SpawnSheep();
+        }
+
+        private void SpawnSheep()
+        {
+            for (int i = 0; i < quantitySheeps; i++)
+            {
+                spawner.SpawningObject(areaSizes.GetRandomPosition());
+
+            }
         }
 
         private void Update()
