@@ -4,7 +4,7 @@ using Random = UnityEngine.Random;
 
 namespace SheepsWolf.Spawners
 {
-    public class SpawnPositionManager : MonoBehaviour
+    public class RandomPosition : MonoBehaviour
     {
         [SerializeField] private BoxCollider floor;
         [SerializeField] private BoxCollider wall;

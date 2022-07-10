@@ -1,6 +1,6 @@
 ﻿namespace SheepsWolf.Abstracts
 {
-    public interface IPlayar
+    public interface IMove
     {
         void Move(float x, float z);
     }

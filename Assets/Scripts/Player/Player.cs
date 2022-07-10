@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace SheepsWolf
 {
-    public class Player : MonoBehaviour, IPlayar
+    public class Player : MonoBehaviour, IMove
     {
         [SerializeField] private float speed = 2f;
 

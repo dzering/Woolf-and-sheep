@@ -10,7 +10,7 @@ namespace SheepsWolf
         [SerializeField] private Player player;
         [SerializeField] private GameObject sheepPrefab;
         [SerializeField] private int quantitySheeps;
-        [SerializeField] private SpawnPositionManager spawnPositionManager;
+        [SerializeField] private RandomPosition spawnPositionManager;
 
         private InputController inputController;
         private CameraController cameraController;
@@ -18,7 +18,7 @@ namespace SheepsWolf
 
         private void Start()
         {
-            inputController = new InputController(player as IPlayar);
+            inputController = new InputController(player as IMove);
             cameraController = new CameraController(player.transform);
             spawner = new Spawner(sheepPrefab);
             SpawnSheep();

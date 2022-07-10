@@ -5,9 +5,9 @@ namespace SheepsWolf
 {
     public class InputController 
     {
-        private readonly IPlayar player;
+        private readonly IMove player;
 
-        public InputController(IPlayar player)
+        public InputController(IMove player)
         {
             this.player = player;
         }
