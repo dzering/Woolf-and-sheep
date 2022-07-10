@@ -6,16 +6,19 @@ namespace SheepsWolf.Spawners
 {
     public class Spawner
     {
-        private GameObject pref;
+        private GameObject prefab;
+        private Transform parantTransform;
 
-	    public Spawner(GameObject spawnObject)
+	    public Spawner(GameObject prefab)
         {
-            pref = spawnObject;
+            parantTransform = new GameObject("Sheeps").transform;
+            this.prefab = prefab;
         }
 
         public GameObject SpawningObject(Vector3 targetposition)
         {
-            GameObject gameObject = GameObject.Instantiate(pref, targetposition, Quaternion.identity);
+            GameObject gameObject = GameObject.Instantiate(prefab, targetposition, Quaternion.identity);
+            gameObject.transform.SetParent(parantTransform);    
             return gameObject;
         }
 

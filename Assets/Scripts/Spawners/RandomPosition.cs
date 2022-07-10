@@ -6,6 +6,7 @@ namespace SheepsWolf.Spawners
 {
     public class RandomPosition : MonoBehaviour
     {
+
         [SerializeField] private BoxCollider floor;
         [SerializeField] private BoxCollider wall;
         [SerializeField] private float sheepSize;
