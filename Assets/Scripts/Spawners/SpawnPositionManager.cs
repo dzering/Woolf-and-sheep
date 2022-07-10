@@ -8,23 +8,23 @@ namespace SheepsWolf.Spawners
     {
         [SerializeField] private BoxCollider floor;
         [SerializeField] private BoxCollider wall;
-        [SerializeField] private BoxCollider sheep;
+        [SerializeField] private float sheepSize;
         private Vector3 areaSize;
 
-        private void Start()
+
+        private void Awake()
         {
             areaSize = GetSizeActiveFieldArea();
         }
-
         private Vector3 GetSizeActiveFieldArea()
         {
             Vector3 floorSize = floor.bounds.size;
             Vector3 wallSize = wall.bounds.size;
-            Vector3 sheepSize = sheep.bounds.size;
+            //Vector3 sheepSize = sheep.bounds.size;
 
-            float x = floorSize.x - 2 * wallSize.x - sheepSize.x / 2;
-            float y = sheepSize.y / 2;
-            float z = floorSize.z - 2 * wallSize.x - sheepSize.z / 2;
+            float x = floorSize.x - 2 * wallSize.x - sheepSize / 2;
+            float y = sheepSize / 2;
+            float z = floorSize.z - 2 * wallSize.x - sheepSize / 2;
             Vector3 size = new Vector3(x, y, z);
 
             return size;

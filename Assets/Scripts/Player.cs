@@ -17,5 +17,13 @@ namespace SheepsWolf
         {
             transform.Translate(x * speed * Time.deltaTime, 0, z * speed * Time.deltaTime);
         }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if(other.TryGetComponent<IInteractible>(out IInteractible component))
+            {
+                component.Interaction();
+            }
+        }
     }
 }
