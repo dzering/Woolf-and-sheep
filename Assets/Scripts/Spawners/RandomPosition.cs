@@ -12,11 +12,21 @@ namespace SheepsWolf.Spawners
         [SerializeField] private float sheepSize;
         private Vector3 areaSize;
 
+        public static RandomPosition instance = null;
 
         private void Awake()
         {
             areaSize = GetSizeActiveFieldArea();
         }
+
+        private void Start()
+        {
+            if (instance == null)
+                instance = this;
+            else
+                Destroy(gameObject);
+        }
+
         private Vector3 GetSizeActiveFieldArea()
         {
             Vector3 floorSize = floor.bounds.size;
