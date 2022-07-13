@@ -2,7 +2,6 @@ using UnityEngine;
 using SheepsWolf.Abstracts;
 using SheepsWolf.Spawners;
 
-
 namespace SheepsWolf
 {
     public sealed class EntryPoint : MonoBehaviour

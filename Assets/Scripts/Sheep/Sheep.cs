@@ -3,28 +3,57 @@ using SheepsWolf.Spawners;
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace SheepsWolf
+namespace SheepsWolf.Enemy
 {
     [RequireComponent(typeof(NavMeshAgent))]
-    public class Sheep : MonoBehaviour, IInteractible
+    public class Sheep : EnemyBase
     {
-        private NavMeshAgent navMeshAgent;
+        private NavMeshAgent agent;
+        private Vector3 destination;
         
         private void Start()
         {
-            navMeshAgent = GetComponent<NavMeshAgent>();
+            agent = GetComponent<NavMeshAgent>();
             MoveRandom();
+            destination = agent.destination;
+        }
+
+        private void Update()
+        {
+            CheckDestination();
+        }
+
+        private void CheckDestination()
+        {
+            float distance = MeasureDistance();
+            Debug.Log($"distance={distance}");
+            if (distance < 1f)
+            {
+                MoveRandom();
+                destination = agent.destination;
+
+            }
+
+            MeasureDistance();
+                Debug.Log($"{name}, position={transform.position}, destination={destination}");
+
+        }
+
+        private float MeasureDistance()
+        {
+            return Vector3.Distance(destination, transform.position);
+            
         }
 
       
         public void MoveRandom()
         {
 
-            navMeshAgent.destination = RandomPosition.instance.GetRandomPosition();
+            agent.destination = RandomPosition.instance.GetRandomPosition();
             
         }
 
-        public void Interaction()
+        public override void Interaction()
         {
             Death();
         }
