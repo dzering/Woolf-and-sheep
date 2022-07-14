@@ -3,6 +3,7 @@ using SheepsWolf.Spawners;
 using SheepsWolf.Sheeps.States;
 using UnityEngine;
 using UnityEngine.AI;
+using System;
 
 namespace SheepsWolf.Sheeps
 {
@@ -10,6 +11,7 @@ namespace SheepsWolf.Sheeps
     public class Sheep : MonoBehaviour, IInteractible, ISheep
     {
         public NavMeshAgent Agent => agent;
+        public event Action<Sheep> OnDeath;
         private NavMeshAgent agent;
         private Vector3 destination;
         private ISheepState currentState;
@@ -34,8 +36,8 @@ namespace SheepsWolf.Sheeps
         }
         private void Death()
         {
+            OnDeath?.Invoke(this);
             GameObject.Destroy(gameObject);
-
         }
       
 

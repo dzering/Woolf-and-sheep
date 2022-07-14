@@ -18,6 +18,11 @@ namespace SheepsWolf
         private Spawner spawner;
 
         private List<Sheep> sheeps = new List<Sheep>();
+        private void RemoveSheep(Sheep sheep)
+        {
+            sheeps.Remove(sheep);
+            sheep.OnDeath -= RemoveSheep;
+        }
 
         private void Start()
         {
@@ -32,6 +37,7 @@ namespace SheepsWolf
             for (int i = 0; i < quantitySheeps; i++)
             {
                 Sheep sheep = spawner.SpawningObject(spawnPositionManager.GetRandomPosition());
+                sheep.OnDeath += RemoveSheep;
                 sheeps.Add(sheep);
             }
         }
@@ -53,9 +59,7 @@ namespace SheepsWolf
                 {
                     sheep.Runing();
                 }
-
             }
-            
         }
 
         private void LateUpdate()
