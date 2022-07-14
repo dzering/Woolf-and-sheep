@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SheepsWolf.Sheeps;
+using System;
 using UnityEngine;
 
 
@@ -15,11 +16,12 @@ namespace SheepsWolf.Spawners
             this.prefab = prefab;
         }
 
-        public GameObject SpawningObject(Vector3 targetposition)
+        public Sheep SpawningObject(Vector3 targetposition)
         {
             GameObject gameObject = GameObject.Instantiate(prefab, targetposition, Quaternion.identity);
-            gameObject.transform.SetParent(parantTransform);    
-            return gameObject;
+            gameObject.transform.SetParent(parantTransform);
+            Sheep sheep = gameObject.GetComponent<Sheep>();
+            return  sheep;
         }
 
     }

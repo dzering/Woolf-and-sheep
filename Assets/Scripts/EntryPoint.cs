@@ -1,6 +1,8 @@
 using UnityEngine;
 using SheepsWolf.Abstracts;
 using SheepsWolf.Spawners;
+using System.Collections.Generic;
+using SheepsWolf.Sheeps;
 
 namespace SheepsWolf
 {
@@ -15,6 +17,8 @@ namespace SheepsWolf
         private CameraController cameraController;
         private Spawner spawner;
 
+        private List<Sheep> sheeps = new List<Sheep>();
+
         private void Start()
         {
             inputController = new InputController(player as IMove);
@@ -27,14 +31,30 @@ namespace SheepsWolf
         {
             for (int i = 0; i < quantitySheeps; i++)
             {
-                spawner.SpawningObject(spawnPositionManager.GetRandomPosition());
-
+                Sheep sheep = spawner.SpawningObject(spawnPositionManager.GetRandomPosition());
+                sheeps.Add(sheep);
             }
         }
 
         private void Update()
         {
             inputController.Update();
+
+            if (Input.GetKey(KeyCode.Alpha1))
+            {
+                foreach (var sheep in sheeps)
+                {
+                    sheep.Walking();
+                }
+            }
+            else if (Input.GetKey(KeyCode.Alpha2))
+            {
+                foreach (var sheep in sheeps)
+                {
+                    sheep.Runing();
+                }
+
+            }
             
         }
 
