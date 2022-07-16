@@ -1,5 +1,4 @@
 ﻿using SheepsWolf.Abstracts;
-using SheepsWolf.Spawners;
 using SheepsWolf.Sheeps.States;
 using UnityEngine;
 using UnityEngine.AI;
@@ -10,10 +9,12 @@ namespace SheepsWolf.Sheeps
     [RequireComponent(typeof(NavMeshAgent))]
     public class Sheep : MonoBehaviour, IInteractible, ISheep
     {
-        public NavMeshAgent Agent => agent;
         public event Action<Sheep> OnDeath;
-        private NavMeshAgent agent;
+        public NavMeshAgent Agent => agent;
+        public ISheepState CurrentState { get { return currentState; } set { currentState = value; } }
+
         private ISheepState currentState;
+        private NavMeshAgent agent;
         private DistanceMeter distanceMeter;
         
         private void Start()
@@ -26,7 +27,6 @@ namespace SheepsWolf.Sheeps
         public void Execute()
         {
             distanceMeter.Execute();
-            currentState.Execute();
         }
 
         public void Walking()
@@ -35,7 +35,7 @@ namespace SheepsWolf.Sheeps
         }
         public void Running()
         {
-            currentState = new AlertState();
+            currentState = new AlertState(this);
         }
         private void Death()
         {

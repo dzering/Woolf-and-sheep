@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using SheepsWolf.Abstracts;
+using SheepsWolf.Spawners;
 
 namespace SheepsWolf.Sheeps.States
 {
@@ -15,14 +16,23 @@ namespace SheepsWolf.Sheeps.States
         }
         public void Execute()
         {
-            Debug.Log($"Sheep {sheep.name} is walking.");
             float distanceToPlayer = MeasureDistance(targetTransform.position, sheep.transform.position);
-            Debug.Log($"distance={distanceToPlayer}");
-            if(distanceToPlayer <= 2f)
+            float distanceToDestination = MeasureDistance(sheep.Agent.destination, sheep.transform.position);
+
+            if (distanceToDestination < 1f)
+            {
+                sheep.CurrentState.Execute();
+            }
+
+
+            if(sheep.CurrentState.StateBehavior == StateBehavior.Walk && distanceToPlayer <= 2f)
             {
                 sheep.Running();
+                sheep.CurrentState.Execute();
                 Debug.Log($"{sheep.name} is running");
-            }else if(distanceToPlayer > 2f)
+            }
+
+            if(sheep.CurrentState.StateBehavior == StateBehavior.Run || distanceToPlayer > 4f)
             {
                 sheep.Walking();
                 Debug.Log($"{sheep.name} is walking");
