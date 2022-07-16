@@ -45,6 +45,10 @@ namespace SheepsWolf
         private void Update()
         {
             inputController.Update();
+            foreach (var sheep in sheeps)
+            {
+                sheep.Execute();
+            }
 
             if (Input.GetKey(KeyCode.Alpha1))
             {
@@ -57,7 +61,7 @@ namespace SheepsWolf
             {
                 foreach (var sheep in sheeps)
                 {
-                    sheep.Runing();
+                    sheep.Running();
                 }
             }
         }

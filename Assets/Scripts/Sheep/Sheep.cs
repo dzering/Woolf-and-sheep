@@ -13,67 +13,41 @@ namespace SheepsWolf.Sheeps
         public NavMeshAgent Agent => agent;
         public event Action<Sheep> OnDeath;
         private NavMeshAgent agent;
-        private Vector3 destination;
         private ISheepState currentState;
+        private DistanceMeter distanceMeter;
         
         private void Start()
         {
             agent = GetComponent<NavMeshAgent>();
-            //MoveRandom();
-            destination = agent.destination;
+            currentState = new NormalState(this);
+            distanceMeter = new DistanceMeter(this);
+        }
+
+        public void Execute()
+        {
+            distanceMeter.Execute();
+            currentState.Execute();
         }
 
         public void Walking()
         {
-            currentState = new NormalState();
-            currentState.Execute(this);
+            currentState = new NormalState(this);
         }
-
-        public void Runing()
+        public void Running()
         {
             currentState = new AlertState();
-            currentState.Execute(this);
         }
         private void Death()
         {
             OnDeath?.Invoke(this);
             GameObject.Destroy(gameObject);
         }
-      
 
-        // 
-        public void MoveRandom()
-        {
-
-            agent.destination = RandomPosition.instance.GetRandomPosition();
-            
-        }
 
         public void Interaction()
         {
             Death();
         }
 
-        private void CheckDestination()
-        {
-            float distance = MeasureDistance();
-            Debug.Log($"distance={distance}");
-            if (distance < 1f)
-            {
-                MoveRandom();
-                destination = agent.destination;
-
-            }
-
-            MeasureDistance();
-                Debug.Log($"{name}, position={transform.position}, destination={destination}");
-
-        }
-
-        private float MeasureDistance()
-        {
-            return Vector3.Distance(destination, transform.position);
-            
-        }
     }
 }
