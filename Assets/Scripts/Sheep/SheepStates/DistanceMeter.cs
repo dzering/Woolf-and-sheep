@@ -6,7 +6,7 @@ namespace SheepsWolf.Sheeps.Behaviors
     {
         private Transform targetTransform;
         private Sheep sheep;
-        private State state = State.Normal;
+
         private bool isTargeted;
 
 
@@ -17,31 +17,23 @@ namespace SheepsWolf.Sheeps.Behaviors
         public void Execute()
         {
             float distanceToPlayer = MeasureDistance(sheep.playerTransform.position, sheep.transform.position);
-            
+            float distanceToDestinationPoint = MeasureDistance(sheep.CurrentState.Destination, sheep.transform.position);
 
-            //if (distanceToDestination < 1f)
-            //{
-            //    sheep.CurrentState.Execute();
-            //}
-
-            //if (isTargeted && distanceToPlayer > 40f)
-            //{
-            //    isTargeted = false;
-            //    sheep.Walking();
-            //}
-
-            if (isTargeted)
+            if (distanceToDestinationPoint < 1f)
             {
-                return;
+                sheep.CurrentState.IsOnWay = false;
             }
-
-            if (distanceToPlayer <= 4f)
+            if(!isTargeted && distanceToPlayer < 4f)
             {
                 isTargeted = true;
                 sheep.AlertState();
-                Debug.Log($"{sheep.name} is running");
             }
 
+            if(isTargeted && distanceToPlayer > 6f)
+            {
+                isTargeted = false;
+                sheep.NormalState();
+            }
         }
 
         private float MeasureDistance(Vector3 targetPosition, Vector3 transformPosition)

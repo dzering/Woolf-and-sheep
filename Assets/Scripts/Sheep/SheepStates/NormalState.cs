@@ -6,20 +6,35 @@ namespace SheepsWolf.Sheeps.Behaviors
 {
     public class NormalState : ISheepState
     {
-        private readonly ISheep sheep;
+        private readonly Sheep sheep;
 
-        public NormalState(ISheep sheep)
+        private Vector3 destination;
+        public Vector3 Destination => destination;
+
+        public bool IsOnWay { get; set; }
+
+        public NormalState(Sheep sheep)
         {
             this.sheep = sheep;
+            destination = RandomPosition.instance.GetRandomPosition();
+            IsOnWay = true;
         }
 
         public void Execute()
         {
+            if (IsOnWay)
+            {
+                sheep.transform.position = Vector3.MoveTowards(
+                                            sheep.transform.position
+                                            ,destination
+                                            ,Time.deltaTime * sheep.Speed);
+            }
+            else
+            {
+                IsOnWay = true;
+                destination = RandomPosition.instance.GetRandomPosition();
+            }
      
-        }
-
-        public void Execute(Vector3 dir)
-        {
         }
     }
 }
