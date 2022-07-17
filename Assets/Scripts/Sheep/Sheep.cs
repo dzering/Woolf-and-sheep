@@ -14,7 +14,7 @@ namespace SheepsWolf.Sheeps
         public Transform playerTransform;
         public ISheepState CurrentState { get { return currentState; } set { currentState = value; } }
 
-        public float Speed => 4f;
+        public float Speed => 2f;
 
         private ISheepState currentState;
         private DistanceMeter distanceMeter;

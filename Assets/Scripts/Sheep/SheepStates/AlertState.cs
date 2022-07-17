@@ -19,12 +19,17 @@ namespace SheepsWolf.Sheeps.Behaviors
         {
             if (dir == Vector3.zero)
             {
-                dir = (sheep.transform.position - sheep.playerTransform.position) * 4;
+                dir = (sheep.transform.position - sheep.playerTransform.position).normalized * 4;
+
+                Debug.DrawLine(Vector3.zero, sheep.transform.position, Color.green, 10f);
+                Debug.DrawLine(Vector3.zero, sheep.playerTransform.position, Color.green, 10f);
                 Debug.DrawLine(sheep.transform.position, sheep.playerTransform.position, Color.blue, 10f);
+                Debug.DrawLine(sheep.transform.position, dir, Color.red, 10f);
             }
 
             float step = Time.deltaTime * sheep.Speed;
-            sheep.CurrentTransform.position = Vector3.MoveTowards(sheep.CurrentTransform.position, dir, step);
+
+            sheep.transform.position = Vector3.MoveTowards(sheep.transform.position, sheep.transform.position + dir, step);
         }
             
     }
