@@ -2,22 +2,24 @@
 using SheepsWolf.Spawners;
 using SheepsWolf.Abstracts;
 
-namespace SheepsWolf.Sheeps.States
+namespace SheepsWolf.Sheeps.Behaviors
 {
     public class NormalState : ISheepState
     {
-        private readonly Sheep sheep;
-        public StateBehavior StateBehavior => StateBehavior.Walk;
+        private readonly ISheep sheep;
 
-
-        public NormalState(Sheep sheep)
+        public NormalState(ISheep sheep)
         {
             this.sheep = sheep;
         }
 
         public void Execute()
         {
-            sheep.Agent.destination = RandomPosition.instance.GetRandomPosition();
+     
+        }
+
+        public void Execute(Vector3 dir)
+        {
         }
     }
 }

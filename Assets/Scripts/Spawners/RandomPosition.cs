@@ -31,7 +31,6 @@ namespace SheepsWolf.Spawners
         {
             Vector3 floorSize = floor.bounds.size;
             Vector3 wallSize = wall.bounds.size;
-            //Vector3 sheepSize = sheep.bounds.size;
 
             float x = floorSize.x - 2 * wallSize.x - sheepSize / 2;
             float y = sheepSize / 2;
@@ -40,6 +39,11 @@ namespace SheepsWolf.Spawners
 
             return size;
 
+        }
+
+        public Vector3 GetRandomPosition(Vector3 direction)
+        {
+            return direction * Random.Range(4, 10);
         }
             
         public Vector3 GetRandomPosition()

@@ -1,13 +1,17 @@
 ﻿using UnityEngine;
 using SheepsWolf.Abstracts;
 using SheepsWolf.Spawners;
+using SheepsWolf.Sheeps;
 
-namespace SheepsWolf.Sheeps.States
+namespace SheepsWolf.Sheeps.Behaviors
 {
     public class DistanceMeter
     {
         private Transform targetTransform;
         private Sheep sheep;
+        private State state = State.Normal;
+        private bool isTargeted;
+
 
         public DistanceMeter(Sheep sheep)
         {
@@ -17,26 +21,31 @@ namespace SheepsWolf.Sheeps.States
         public void Execute()
         {
             float distanceToPlayer = MeasureDistance(targetTransform.position, sheep.transform.position);
-            float distanceToDestination = MeasureDistance(sheep.Agent.destination, sheep.transform.position);
+            
 
-            if (distanceToDestination < 1f)
+            //if (distanceToDestination < 1f)
+            //{
+            //    sheep.CurrentState.Execute();
+            //}
+
+            //if (isTargeted && distanceToPlayer > 40f)
+            //{
+            //    isTargeted = false;
+            //    sheep.Walking();
+            //}
+
+            if (isTargeted)
             {
-                sheep.CurrentState.Execute();
+                return;
             }
 
-
-            if(sheep.CurrentState.StateBehavior == StateBehavior.Walk && distanceToPlayer <= 2f)
+            if (distanceToPlayer <= 4f)
             {
-                sheep.Running();
-                sheep.CurrentState.Execute();
+                isTargeted = true;
+                sheep.AlertState();
                 Debug.Log($"{sheep.name} is running");
             }
 
-            if(sheep.CurrentState.StateBehavior == StateBehavior.Run || distanceToPlayer > 4f)
-            {
-                sheep.Walking();
-                Debug.Log($"{sheep.name} is walking");
-            }
         }
 
         private float MeasureDistance(Vector3 targetPosition, Vector3 transformPosition)

@@ -2,23 +2,27 @@
 using UnityEngine;
 using SheepsWolf.Spawners;
 
-namespace SheepsWolf.Sheeps.States
+namespace SheepsWolf.Sheeps.Behaviors
 {
     public class AlertState : ISheepState
     {
 
-        private readonly Sheep sheep;
-        public StateBehavior StateBehavior => StateBehavior.Walk;
+        private readonly ISheep sheep;
 
-
-        public AlertState(Sheep sheep)
+        public AlertState(ISheep sheep)
         {
             this.sheep = sheep;
         }
 
         public void Execute()
         {
-            sheep.Agent.destination = RandomPosition.instance.GetRandomPosition();
+            float step = Time.deltaTime * sheep.Speed;
+            sheep.CurrentTransform.position = Vector3.MoveTowards(sheep.CurrentTransform.position, Vector3.zero, step);
+        }
+
+        public void Execute(Vector3 dir)
+        {
+            
         }
     }
 }

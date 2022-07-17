@@ -54,14 +54,14 @@ namespace SheepsWolf
             {
                 foreach (var sheep in sheeps)
                 {
-                    sheep.Walking();
+                    sheep.NormalState();
                 }
             }
             else if (Input.GetKey(KeyCode.Alpha2))
             {
                 foreach (var sheep in sheeps)
                 {
-                    sheep.Running();
+                    sheep.AlertState();
                 }
             }
         }

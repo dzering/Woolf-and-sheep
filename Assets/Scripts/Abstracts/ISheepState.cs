@@ -1,11 +1,12 @@
 ﻿using SheepsWolf.Sheeps;
+using UnityEngine;
 
 
 namespace SheepsWolf.Abstracts
 {
     public interface ISheepState
     {
-        StateBehavior StateBehavior { get; }
         void Execute();
+        void Execute(Vector3 dir);
     }
 }

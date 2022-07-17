@@ -1,15 +1,16 @@
-﻿using UnityEngine.AI;
+﻿using UnityEngine;
 using SheepsWolf.Abstracts;
 
 namespace SheepsWolf.Abstracts
 {
     public interface ISheep
     {
-        NavMeshAgent Agent { get; }
+        Transform CurrentTransform { get;set;}
         ISheepState CurrentState { get; set; }
-        
-        void Walking();
-        void Running();
+        float Speed { get; }
+
+        void NormalState();
+        void AlertState();
 
     }
 }
