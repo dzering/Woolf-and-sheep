@@ -7,22 +7,25 @@ namespace SheepsWolf.Sheeps.Behaviors
     public class AlertState : ISheepState
     {
 
-        private readonly ISheep sheep;
+        private readonly Sheep sheep;
+        private Vector3 dir;
 
-        public AlertState(ISheep sheep)
+        public AlertState(Sheep sheep)
         {
             this.sheep = sheep;
         }
 
         public void Execute()
         {
-            float step = Time.deltaTime * sheep.Speed;
-            sheep.CurrentTransform.position = Vector3.MoveTowards(sheep.CurrentTransform.position, Vector3.zero, step);
-        }
+            if (dir == Vector3.zero)
+            {
+                dir = (sheep.transform.position - sheep.playerTransform.position) * 4;
+                Debug.DrawLine(sheep.transform.position, sheep.playerTransform.position, Color.blue, 10f);
+            }
 
-        public void Execute(Vector3 dir)
-        {
-            
+            float step = Time.deltaTime * sheep.Speed;
+            sheep.CurrentTransform.position = Vector3.MoveTowards(sheep.CurrentTransform.position, dir, step);
         }
+            
     }
 }

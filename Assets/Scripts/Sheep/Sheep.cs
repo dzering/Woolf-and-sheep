@@ -11,15 +11,21 @@ namespace SheepsWolf.Sheeps
     {
         public event Action<Sheep> OnDeath;
         public Transform CurrentTransform { get; set; }
+        public Transform playerTransform;
         public ISheepState CurrentState { get { return currentState; } set { currentState = value; } }
 
         public float Speed => 4f;
 
         private ISheepState currentState;
         private DistanceMeter distanceMeter;
-        
+
+        private void Awake()
+        {
+            playerTransform = GameObject.FindObjectOfType<Player>().transform;
+        }
         private void Start()
         {
+            
             CurrentTransform = transform;
             currentState = new NormalState(this);
             distanceMeter = new DistanceMeter(this);

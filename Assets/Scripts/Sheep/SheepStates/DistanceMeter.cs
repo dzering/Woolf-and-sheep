@@ -1,7 +1,4 @@
 ﻿using UnityEngine;
-using SheepsWolf.Abstracts;
-using SheepsWolf.Spawners;
-using SheepsWolf.Sheeps;
 
 namespace SheepsWolf.Sheeps.Behaviors
 {
@@ -15,12 +12,11 @@ namespace SheepsWolf.Sheeps.Behaviors
 
         public DistanceMeter(Sheep sheep)
         {
-            targetTransform = GameObject.FindObjectOfType<Player>().transform;
             this.sheep = sheep;
         }
         public void Execute()
         {
-            float distanceToPlayer = MeasureDistance(targetTransform.position, sheep.transform.position);
+            float distanceToPlayer = MeasureDistance(sheep.playerTransform.position, sheep.transform.position);
             
 
             //if (distanceToDestination < 1f)

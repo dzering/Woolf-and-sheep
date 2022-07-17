@@ -7,6 +7,5 @@ namespace SheepsWolf.Abstracts
     public interface ISheepState
     {
         void Execute();
-        void Execute(Vector3 dir);
     }
 }
