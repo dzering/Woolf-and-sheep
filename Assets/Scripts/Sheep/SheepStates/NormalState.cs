@@ -16,7 +16,7 @@ namespace SheepsWolf.Sheeps.Behaviors
         public NormalState(Sheep sheep)
         {
             this.sheep = sheep;
-            destination = RandomPosition.instance.GetRandomPosition();
+            destination = AreaGame.instance.GetRandomPosition();
             IsOnWay = true;
         }
 
@@ -32,7 +32,7 @@ namespace SheepsWolf.Sheeps.Behaviors
             else
             {
                 IsOnWay = true;
-                destination = RandomPosition.instance.GetRandomPosition();
+                destination = AreaGame.instance.GetRandomPosition();
             }
      
         }

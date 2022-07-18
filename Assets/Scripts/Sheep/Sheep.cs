@@ -6,12 +6,12 @@ using System;
 
 namespace SheepsWolf.Sheeps
 {
-    [RequireComponent(typeof(NavMeshAgent))]
     public class Sheep : MonoBehaviour, IInteractible, ISheep
     {
+        private AudioSource audioSource;
         public event Action<Sheep> OnDeath;
         public Transform CurrentTransform { get; set; }
-        public Transform playerTransform;
+        public Transform PlayerTransform;
         public ISheepState CurrentState { get { return currentState; } set { currentState = value; } }
 
         public float Speed => 2f;
@@ -19,22 +19,22 @@ namespace SheepsWolf.Sheeps
         private ISheepState currentState;
         private DistanceMeter distanceMeter;
 
-        private void Awake()
+        public void Init(Transform playerTransform)
         {
-            playerTransform = GameObject.FindObjectOfType<Player>().transform;
+            PlayerTransform = playerTransform;
         }
         private void Start()
         {
-            
             CurrentTransform = transform;
             currentState = new NormalState(this);
             distanceMeter = new DistanceMeter(this);
+            audioSource =GetComponent<AudioSource>();
         }
 
         public void Execute()
         {
             distanceMeter.Execute();
-            Move();
+            currentState.Execute();
         }
         public void NormalState()
         {
@@ -44,19 +44,14 @@ namespace SheepsWolf.Sheeps
         {
             currentState = new AlertState(this);
         }
-
-        private void Move()
+        public void Interaction()
         {
-            currentState.Execute();
+            Death();
         }
         private void Death()
         {
             OnDeath?.Invoke(this);
             GameObject.Destroy(gameObject);
-        }
-        public void Interaction()
-        {
-            Death();
         }
 
     }

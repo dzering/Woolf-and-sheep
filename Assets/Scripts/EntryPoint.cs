@@ -11,7 +11,8 @@ namespace SheepsWolf
         [SerializeField] private Player player;
         [SerializeField] private GameObject sheepPrefab;
         [SerializeField] private int quantitySheeps;
-        [SerializeField] private RandomPosition spawnPositionManager;
+        [SerializeField] private AreaGame spawnPositionManager;
+        [SerializeField] private AudioSource audioSourceBaa;
 
         private InputController inputController;
         private CameraController cameraController;
@@ -22,6 +23,12 @@ namespace SheepsWolf
         {
             sheeps.Remove(sheep);
             sheep.OnDeath -= RemoveSheep;
+            sheep.OnDeath -= SoundDeath;
+        }
+
+        private void SoundDeath(Sheep sheep)
+        {
+            audioSourceBaa.Play();
         }
 
         private void Start()
@@ -38,6 +45,8 @@ namespace SheepsWolf
             {
                 Sheep sheep = spawner.SpawningObject(spawnPositionManager.GetRandomPosition());
                 sheep.OnDeath += RemoveSheep;
+                sheep.OnDeath += SoundDeath;
+                sheep.Init(player.transform);
                 sheeps.Add(sheep);
             }
         }
@@ -50,26 +59,11 @@ namespace SheepsWolf
                 sheep.Execute();
             }
 
-            if (Input.GetKey(KeyCode.Alpha1))
-            {
-                foreach (var sheep in sheeps)
-                {
-                    sheep.NormalState();
-                }
-            }
-            else if (Input.GetKey(KeyCode.Alpha2))
-            {
-                foreach (var sheep in sheeps)
-                {
-                    sheep.AlertState();
-                }
-            }
         }
 
         private void LateUpdate()
         {
             cameraController.Update();
         }
-
     }
 }

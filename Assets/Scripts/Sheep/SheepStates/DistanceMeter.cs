@@ -4,11 +4,8 @@ namespace SheepsWolf.Sheeps.Behaviors
 {
     public class DistanceMeter
     {
-        private Transform targetTransform;
         private Sheep sheep;
-
         private bool isTargeted;
-
 
         public DistanceMeter(Sheep sheep)
         {
@@ -16,7 +13,7 @@ namespace SheepsWolf.Sheeps.Behaviors
         }
         public void Execute()
         {
-            float distanceToPlayer = MeasureDistance(sheep.playerTransform.position, sheep.transform.position);
+            float distanceToPlayer = MeasureDistance(sheep.PlayerTransform.position, sheep.transform.position);
             float distanceToDestinationPoint = MeasureDistance(sheep.CurrentState.Destination, sheep.transform.position);
 
             if (distanceToDestinationPoint < 1f)
@@ -29,13 +26,12 @@ namespace SheepsWolf.Sheeps.Behaviors
                 sheep.AlertState();
             }
 
-            if(isTargeted && distanceToPlayer > 6f)
+            if(isTargeted && distanceToPlayer > 8f)
             {
                 isTargeted = false;
                 sheep.NormalState();
             }
         }
-
         private float MeasureDistance(Vector3 targetPosition, Vector3 transformPosition)
         {
             return Vector3.Distance(targetPosition, transformPosition);
